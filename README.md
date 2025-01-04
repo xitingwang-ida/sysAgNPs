@@ -78,7 +78,7 @@ sysAgNPs_line_radar_1 <- sys_line_radar(sysAgNPs_score, 1, "sysAgNPs_line_radar/
 # sysAgNP1
 sysAgNPs_line_radar_1
 ```
-![](man/figures/sysAgNP1.png)<!-- -->
+![](sysAgNPs_line_radar.png)<!-- -->
 
 ## Session information
 ```R
