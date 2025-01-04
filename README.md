@@ -5,7 +5,7 @@
 There is variation across AgNPs due to differences in characterization techniques and testing metrics employed in studies. To address this problem, we have developed a systematic evaluation framework called "sysAgNPs". Within this framework, Distribution Entropy (DE) is utilized to measure the uncertainty of AgNPs' feature categories, Proclivity Entropy (PE) assesses the preference of these categories, and Combination Entropy (CE) quantifies the uncertainty of feature combinations of AgNPs. Additionally, a Markov chain model is employed to examine the relationships among the sub-features of AgNPs and to determine a Transition Score (TS) scoring standard that is based on steady-state probabilities. The sysAgNPs framework provides metrics for evaluating AgNPs, which helps to unravel their complexity and facilitates effective comparisons among different AgNPs, thereby advancing the scientific research and application of these nanoparticles.
 
 ## Installation of sysAgNPs package
-git clone https://github.com/xitingwang-ida/sysAgNPs.git
+
 ```R
 # Install sysAgNPs from Bitbucket
 install.packages("devtools")

@@ -1,6 +1,6 @@
 Package: sysAgNPs
 Title: Systematic quantification of AgNPs to unleash their potential for applicability
-Version: 1.0.1
+Version: 1.0.0
 Authors@R: 
     c(person("Xiting", "Wang", email = "XitingWang2023@outlook.com", role = c("aut", "cre"), comment = c(ORCID = "0009-0009-5235-0006")),
     person("Longfei","Mao",email = "longfeimao99@gmail.com",role = c("aut","cph"),comment = c(ORCID = "0000-0003-0759-0501")),
