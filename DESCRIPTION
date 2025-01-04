@@ -1,0 +1,27 @@
+Package: sysAgNPs
+Title: Systematic quantification of AgNPs to unleash their potential for applicability
+Version: 1.0.1
+Authors@R: 
+    c(person("Xiting", "Wang", email = "XitingWang2023@outlook.com", role = c("aut", "cre"), comment = c(ORCID = "0009-0009-5235-0006")),
+    person("Longfei","Mao",email = "longfeimao99@gmail.com",role = c("aut","cph"),comment = c(ORCID = "0000-0003-0759-0501")),
+    person("Jiamin","Hu",email = "jiamin-hu@hotmail.com",role = c("ctb"), comment = c(ORCID = "0000-0003-3030-2117"))
+    )
+Description: There is variation across AgNPs due to differences in characterization techniques and testing metrics employed in studies. To address this problem, we have developed a systematic evaluation framework called "sysAgNPs". Within this framework, Distribution Entropy (DE) is utilized to measure the uncertainty of AgNPs' feature categories, Proclivity Entropy (PE) assesses the preference of these categories, and Combination Entropy (CE) quantifies the uncertainty of feature combinations of AgNPs. Additionally, a Markov chain model is employed to examine the relationships among the sub-features of AgNPs and to determine a Transition Score (TS) scoring standard that is based on steady-state probabilities. The sysAgNPs framework provides metrics for evaluating AgNPs, which helps to unravel their complexity and facilitates effective comparisons among different AgNPs, thereby advancing the scientific research and application of these nanoparticles.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+URL: https://bitbucket.org/cindy-w/sysagnps/src/master/
+Imports: 
+    dplyr,
+    expm,
+    ggplot2,
+    ggpubr,
+    ggradar,
+    magrittr,
+    patchwork,
+    purrr,
+    rio,
+    tibble,
+    tidyr,
+    rlang
