@@ -16,5 +16,7 @@ A dataframe including 1. the number of feature in a certain category; 2. the tot
 Measure the preference of feature categories.
 }
 \examples{
+data(dataset)
+users_data <- dataset
 PE = sys_PE(users_data)
 }

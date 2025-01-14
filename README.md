@@ -23,7 +23,7 @@ All the approaches of sysAgNPs are implemented as a software package that handle
 
 ```R
 # Import AgNPs dataset to build Transition Score criteria
-dataset <- rio::import("dataset.xlsx")
+data(dataset)
 
 # Select the columns to be discretized
 var_dis <- c("Synthesis methods", "pH", "Temperature (℃)", "Zeta potential (mV)","Size (nm)", "Shape", "Applications")
@@ -38,19 +38,21 @@ tran_matrix <- sys_tran(dis_data)
 tol_iter <- sys_steady(dis_data, tran_matrix)
 
 # Loop "n_iter" times to count the results of each iteration. The final steady-state result is reached when the number of iterations is "n_iter"
+
 iter_prob <- sys_iter(dataset, 6, var_dis)
 
 # Export the Transition Score criteria
 TS_criteria <- sys_eval_cri(dataset, 6, var_dis)
 # Save Transition Score criteria
-rio::export(TS_criteria,"TS_criteria.xlsx")
+rio::export(TS_criteria,"inst/extdata/TS_criteria.xlsx")
 ```
 
 ### Evaluate the experimental data of AgNPs
 
 ```R
 # Import and evaluate the experimental data
-users_data <- rio::import("users_data.xlsx")
+data(dataset)
+users_data <- dataset
 
 # Calculate the Distribution Entropy
 DE <- sys_DE(users_data)
@@ -71,14 +73,14 @@ sysAgNPs_score <- data.frame(DE = DE$H_pB,
                              TS = T_S$TS)
 
 # Save sysAgNPs score results
-rio::export(sysAgNPs_score, "sysAgNPs_score.xlsx")
+rio::export(sysAgNPs_score, "inst/extdata/sysAgNPs_score.xlsx")
 
 # Line and radar plots of sysAgNPs score                            
-sysAgNPs_line_radar_1 <- sys_line_radar(sysAgNPs_score, 1, "sysAgNPs_line_radar/")
+sysAgNPs_line_radar_1 <- sys_line_radar(sysAgNPs_score, 1)
 # sysAgNP1
 sysAgNPs_line_radar_1
 ```
-![](sysAgNPs_line_radar.png)<!-- -->
+![](man/figures/sysAgNP1.png)<!-- -->
 
 ## Session information
 ```R

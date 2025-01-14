@@ -20,5 +20,6 @@ A dataframe containing the number of iterations and the transition probability o
 Loop "n_iter" times to obtain the transition probability of each iteration.
 }
 \examples{
-iter_prob <- sys_iter(binary_dataset, 6, c("Shape", "pH"))
+data(dataset)
+iter_prob <- sys_iter(dataset, 6, c("Shape", "pH"))
 }

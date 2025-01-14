@@ -18,5 +18,6 @@ A binary dataframe.
 Convert categorical variables into discrete variables
 }
 \examples{
+data(dataset)
 dis_data <- sys_discretize(dataset, c("Shape", "pH"))
 }

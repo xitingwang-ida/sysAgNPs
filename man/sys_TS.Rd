@@ -21,6 +21,3 @@ A dataframe that contains sysAgNPs scores.
 \description{
 Calculate the Transition Scores
 }
-\examples{
-score <- sys_score(users_data, criteria)
-}

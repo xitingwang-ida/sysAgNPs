@@ -1,15 +1,20 @@
+globalVariables(".data")
+globalVariables(".")
 #' @title Calculate the Combination Entropy
 #' @description Calculate the average value of the probability of surprising level of the  presence and absence of a particular category within the specific category to measure the average uncertainty of feature categories.
 #'
 #' @param data A dataframe that contains experimental data.
 #' @param dataset The dataset used to to calculate the ratio of the number of reporting a certain feature in the AgNPs dataset to the total number of samples.
-#' @importFrom dplyr %>% rowwise mutate mutate_all c_across
+#' @importFrom dplyr %>% rowwise mutate mutate_all c_across everything
 #' @importFrom purrr map
 #' @importFrom tibble tibble
 #' @return A dataframe including: 1. the ratio of the number of reporting a certain feature in the AgNPs dataset to the total number of samples; 2. pc:the probability of the feature combination occurring; 3. Hi:the probability of surprising level of the presence and absence of feature combinations to measure the uncertainty of feature combination.
 #' @export
 #'
-#' @examples CE <- sys_CE(users_data, dataset)
+#' @examples
+#' data(dataset)
+#' users_data <- dataset
+#' CE <- sys_CE(users_data, dataset)
 
 sys_CE <- function(data, dataset){
 

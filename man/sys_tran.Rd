@@ -16,5 +16,6 @@ A transfer probability matrix.
 Calculate transition probability matrix
 }
 \examples{
+data(binary_dataset)
 tran_matrix <- sys_tran(binary_dataset)
 }

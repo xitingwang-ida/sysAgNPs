@@ -1,3 +1,5 @@
+globalVariables(".data")
+globalVariables(".")
 #' @title Calculate the Proclivity Entropy
 #' @description Measure the preference of feature categories.
 #'
@@ -9,7 +11,10 @@
 #' @return A dataframe including 1. the number of feature in a certain category; 2. the total number of features in the sample; 3. the expected value to measure the average description level across different feature categories.
 #' @export
 #'
-#' @examples PE = sys_PE(users_data)
+#' @examples
+#' data(dataset)
+#' users_data <- dataset
+#' PE = sys_PE(users_data)
 
 
 sys_PE <- function(data){

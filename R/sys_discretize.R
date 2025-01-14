@@ -7,7 +7,9 @@
 #' @return A binary dataframe.
 #' @export
 #'
-#' @examples dis_data <- sys_discretize(dataset, c("Shape", "pH"))
+#' @examples
+#' data(dataset)
+#' dis_data <- sys_discretize(dataset, c("Shape", "pH"))
 
 sys_discretize <- function(dataset, vars_to_discretize = NULL) {
 

@@ -1,3 +1,5 @@
+globalVariables(".data")
+globalVariables(".")
 #' @title Build Transition Scores criteria
 #' @description This function evaluates the criteria for a binary dataset by calculating the transfer probability matrix and iterating to obtain the transfer probability vector.
 #'
@@ -6,7 +8,7 @@
 #' @param vars_to_discretize Variables or columns to be discretized. Default is NULL.
 #' @importFrom rio import export
 #' @importFrom tibble tibble
-#' @importFrom dplyr select mutate pull arrange
+#' @importFrom dplyr %>% select mutate pull arrange
 #' @importFrom tidyr unnest
 #' @importFrom purrr map_dfr accumulate
 #' @importFrom expm %^%
@@ -14,7 +16,12 @@
 #' @return A dataframe containing the scores of nanomaterial features.
 #' @export
 #'
-#' @examples criteria <- sys_eval_cri(binary_dataset, 6, var_dis)
+#' @examples
+#' data(dataset)
+#' binary_dataset <- dataset
+#' var_dis <- c("Synthesis methods", "pH", "Temperature (℃)",
+#' "Zeta potential (mV)","Size (nm)", "Shape", "Applications")
+#' criteria <- sys_eval_cri(binary_dataset, 6, var_dis)
 
 sys_eval_cri <- function(binary_dataset, n_iter, vars_to_discretize = NULL) {
 

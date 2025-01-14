@@ -4,14 +4,12 @@
 \alias{sys_line_radar}
 \title{Line and Radar Plot of sysAgNPs score}
 \usage{
-sys_line_radar(sysAgNPs_score, num_plots, output_directory)
+sys_line_radar(sysAgNPs_score, num_plots)
 }
 \arguments{
 \item{sysAgNPs_score}{A dataframe containing four columns of numeric data.}
 
 \item{num_plots}{The range of the graph to be output and saved can be a vector or a single value.}
-
-\item{output_directory}{Directory where the plots will be saved.}
 }
 \value{
 A \code{ggplot} object.
@@ -20,5 +18,6 @@ A \code{ggplot} object.
 Line and Radar Plot of sysAgNPs score
 }
 \examples{
-sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10, "sysAgNPs_line_radar/")
+data(sysAgNPs_score)
+sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10)
 }

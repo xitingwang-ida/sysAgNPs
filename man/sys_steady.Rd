@@ -24,5 +24,7 @@ A data frame containing the constraints and the number of iterations to reach th
 Change the values of the constraints step by step and record the number of iterations to reach the steady state.
 }
 \examples{
+data(binary_dataset)
+data(tran_matrix)
 tol_iter <- sys_steady(binary_dataset, tran_matrix, 1e-5)
 }

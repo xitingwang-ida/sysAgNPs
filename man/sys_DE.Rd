@@ -16,6 +16,7 @@ A dataframe including 1. the number of feature in a certain category; 2. the tot
 Measure the distribution variability of the presence and absence of feature categories.
 }
 \examples{
+data(dataset)
+users_data <- dataset
 DE = sys_DE(users_data)
-
 }

@@ -5,7 +5,9 @@
 #' @return A transfer probability matrix.
 #' @export
 #'
-#' @examples tran_matrix <- sys_tran(binary_dataset)
+#' @examples
+#' data(binary_dataset)
+#' tran_matrix <- sys_tran(binary_dataset)
 
 sys_tran <- function(binary_dataset){
 

@@ -20,5 +20,9 @@ A dataframe containing the scores of nanomaterial features.
 This function evaluates the criteria for a binary dataset by calculating the transfer probability matrix and iterating to obtain the transfer probability vector.
 }
 \examples{
+data(dataset)
+binary_dataset <- dataset
+var_dis <- c("Synthesis methods", "pH", "Temperature (℃)",
+"Zeta potential (mV)","Size (nm)", "Shape", "Applications")
 criteria <- sys_eval_cri(binary_dataset, 6, var_dis)
 }

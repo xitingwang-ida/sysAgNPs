@@ -1,3 +1,5 @@
+globalVariables(".data")
+globalVariables(".")
 #' @title Calculate the Distribution Entropy
 #' @description Measure the distribution variability of the presence and absence of feature categories.
 #' @param data A dataframe that contains experimental data.
@@ -8,8 +10,10 @@
 #' @return A dataframe including 1. the number of feature in a certain category; 2. the total number of features in the sample; 3.  the average value to measure the average uncertainty of feature categories
 #' @export
 #'
-#' @examples DE = sys_DE(users_data)
-#'
+#' @examples
+#' data(dataset)
+#' users_data <- dataset
+#' DE = sys_DE(users_data)
 
 sys_DE <- function(data){
 

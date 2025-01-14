@@ -18,5 +18,7 @@ A dataframe including: 1. the ratio of the number of reporting a certain feature
 Calculate the average value of the probability of surprising level of the  presence and absence of a particular category within the specific category to measure the average uncertainty of feature categories.
 }
 \examples{
+data(dataset)
+users_data <- dataset
 CE <- sys_CE(users_data, dataset)
 }

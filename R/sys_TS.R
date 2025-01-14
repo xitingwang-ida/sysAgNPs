@@ -8,9 +8,6 @@
 #' @importFrom dplyr arrange
 #' @return A dataframe that contains sysAgNPs scores.
 #' @export
-#'
-#' @examples score <- sys_score(users_data, criteria)
-
 
 sys_TS <- function(data, dataset, n_iter, vars_to_discretize){
 

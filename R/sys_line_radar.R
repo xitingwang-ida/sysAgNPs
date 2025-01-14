@@ -1,8 +1,9 @@
+globalVariables(".data")
+globalVariables(".")
 #' Line and Radar Plot of sysAgNPs score
 #'
 #' @param sysAgNPs_score A dataframe containing four columns of numeric data.
 #' @param num_plots The range of the graph to be output and saved can be a vector or a single value.
-#' @param output_directory Directory where the plots will be saved.
 #' @return A `ggplot` object.
 #' @importFrom ggplot2 ggplot aes geom_line geom_point geom_text position_nudge scale_color_manual labs scale_y_continuous theme_bw theme element_text ggsave
 #' @importFrom dplyr mutate select
@@ -11,9 +12,13 @@
 #' @importFrom ggpubr ggarrange
 #' @importFrom rlang sym
 #' @importFrom patchwork wrap_plots
+#' @importFrom utils head tail
 #' @export
-#' @examples sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10, "sysAgNPs_line_radar/")
-sys_line_radar <- function(sysAgNPs_score, num_plots, output_directory) {
+#' @examples
+#' data(sysAgNPs_score)
+#' sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10)
+
+sys_line_radar <- function(sysAgNPs_score, num_plots) {
 
   # Transpose the data frame for drawing line plots
   sysAgNPs_score_line <- as.data.frame(t(sysAgNPs_score))
@@ -151,12 +156,6 @@ sys_line_radar <- function(sysAgNPs_score, num_plots, output_directory) {
     wrap_plots(x, ncol = 2, nrow = 1)
   })
 
-  # Checks whether the specified output directory exists
-  if (!dir.exists(output_directory)) {
-    # If the output directory does not exist, create it
-    dir.create(output_directory, recursive = TRUE)
-  }
-
   # Check if the num_plots parameter is a vector with multiple elements
   if (length(num_plots) > 1) {
     # If num_plots are a vector, then selected_indices is directly equal to num_plots
@@ -169,18 +168,6 @@ sys_line_radar <- function(sysAgNPs_score, num_plots, output_directory) {
   # Corresponding wrapped_plots were extracted according to selected_indices
   selected_plots <- wrapped_plots[selected_indices]
 
-  # Save images
-  for (i in seq_along(selected_plots)) {
-    # Image name to be saved
-    file_name <- paste0("sysAgNP", selected_indices[i], ".png")
-    # Save path
-    file_path <- file.path(output_directory, file_name)
-    ggsave(file = file_path,
-           plot = selected_plots[[i]],
-           width = 10, # Image width for saving
-           height = 6, # Image height for saving
-           dpi = 600) # Image resolution for saving
-  }
   # Output the images
   return(selected_plots)
 }

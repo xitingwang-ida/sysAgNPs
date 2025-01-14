@@ -1,3 +1,5 @@
+globalVariables(".data")
+globalVariables(".")
 #' @title Obtain the transition probability of each iteration
 #' @description Loop "n_iter" times to obtain the transition probability of each iteration.
 #'
@@ -9,7 +11,9 @@
 #' @return A dataframe containing the number of iterations and the transition probability of each iteration.
 #' @export
 #'
-#' @examples iter_prob <- sys_iter(binary_dataset, 6, c("Shape", "pH"))
+#' @examples
+#' data(dataset)
+#' iter_prob <- sys_iter(dataset, 6, c("Shape", "pH"))
 
 sys_iter <- function(binary_dataset, n_iter, vars_to_discretize = NULL) {
 

@@ -9,7 +9,10 @@
 #' @return A data frame containing the constraints and the number of iterations to reach the steady state.
 #' @export
 #'
-#' @examples tol_iter <- sys_steady(binary_dataset, tran_matrix, 1e-5)
+#' @examples
+#' data(binary_dataset)
+#' data(tran_matrix)
+#' tol_iter <- sys_steady(binary_dataset, tran_matrix, 1e-5)
 
 sys_steady <- function(binary_dataset, tran_matrix, tol_vec = c(1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7)){
 
