@@ -7,10 +7,12 @@ There is variation across AgNPs (Silver nanoparticles) due to differences in cha
 ## Installation of sysAgNPs package
 
 ```R
-# Install sysAgNPs from Bitbucket
+# Install sysAgNPs 
 install.packages("devtools")
 library(devtools)
 devtools::install_github("xitingwang-ida/sysAgNPs")
+devtools::install_bitbucket("cindy-w/sysAgNPs")
+
 # Other packages required
 devtools::install_github("ricardo-bion/ggradar", dependencies = TRUE)
 
