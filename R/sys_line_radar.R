@@ -8,15 +8,17 @@ globalVariables(".")
 #' @importFrom ggplot2 ggplot aes geom_line geom_point geom_text position_nudge scale_color_manual labs scale_y_continuous theme_bw theme element_text ggsave
 #' @importFrom dplyr mutate select
 #' @importFrom tibble as_tibble
-#' @importFrom ggradar ggradar
 #' @importFrom ggpubr ggarrange
 #' @importFrom rlang sym
 #' @importFrom patchwork wrap_plots
 #' @importFrom utils head tail
 #' @export
 #' @examples
+#' \dontrun{
+#' library(ggradar)
 #' data(sysAgNPs_score)
 #' sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10)
+#' }
 
 sys_line_radar <- function(sysAgNPs_score, num_plots) {
 
