@@ -1,8 +1,8 @@
-# sysAgNPs <a href="https://xitingwang-ida.github.io/sysAgNPs/"><img src="man/figures/logo.svg" align="right" height="139" /></a>
+# sysAgNPs <a href="https://github.com/xitingwang-ida/sysAgNPs"><img src="man/figures/logo.svg" align="right" height="139" /></a>
 
 ## Introduction
 
-There is variation across AgNPs due to differences in characterization techniques and testing metrics employed in studies. To address this problem, we have developed a systematic evaluation framework called "sysAgNPs". Within this framework, Distribution Entropy (DE) is utilized to measure the uncertainty of AgNPs' feature categories, Proclivity Entropy (PE) assesses the preference of these categories, and Combination Entropy (CE) quantifies the uncertainty of feature combinations of AgNPs. Additionally, a Markov chain model is employed to examine the relationships among the sub-features of AgNPs and to determine a Transition Score (TS) scoring standard that is based on steady-state probabilities. The sysAgNPs framework provides metrics for evaluating AgNPs, which helps to unravel their complexity and facilitates effective comparisons among different AgNPs, thereby advancing the scientific research and application of these nanoparticles.
+There is variation across AgNPs (Silver nanoparticles) due to differences in characterization techniques and testing metrics employed in studies. To address this problem, we have developed a systematic evaluation framework called "sysAgNPs". Within this framework, Distribution Entropy (DE) is utilized to measure the uncertainty of AgNPs' feature categories, Proclivity Entropy (PE) assesses the preference of these categories, and Combination Entropy (CE) quantifies the uncertainty of feature combinations of AgNPs. Additionally, a Markov chain model is employed to examine the relationships among the sub-features of AgNPs and to determine a Transition Score (TS) scoring standard that is based on steady-state probabilities. The sysAgNPs framework provides metrics for evaluating AgNPs, which helps to unravel their complexity and facilitates effective comparisons among different AgNPs, thereby advancing the scientific research and application of these nanoparticles.
 
 ## Installation of sysAgNPs package
 
@@ -11,9 +11,12 @@ There is variation across AgNPs due to differences in characterization technique
 install.packages("devtools")
 library(devtools)
 devtools::install_github("xitingwang-ida/sysAgNPs")
+# Other packages required
+devtools::install_github("ricardo-bion/ggradar", dependencies = TRUE)
 
-# Load sysAgNPs
+# Load package
 library(sysAgNPs)
+library(ggradar)
 ```
 
 ## How to use sysAgNPs to evaluate AgNPs data
