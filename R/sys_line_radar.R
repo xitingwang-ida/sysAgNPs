@@ -9,16 +9,14 @@ globalVariables(".")
 #' @importFrom dplyr mutate select
 #' @importFrom tibble as_tibble
 #' @importFrom ggpubr ggarrange
+#' @importFrom ggradar ggradar
 #' @importFrom rlang sym
 #' @importFrom patchwork wrap_plots
 #' @importFrom utils head tail
 #' @export
 #' @examples
-#' \dontrun{
-#' library(ggradar)
 #' data(sysAgNPs_score)
 #' sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10)
-#' }
 
 sys_line_radar <- function(sysAgNPs_score, num_plots) {
 

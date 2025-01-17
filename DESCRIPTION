@@ -12,6 +12,8 @@ Language: en-US
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+References: None
+LazyData: true
 URL: https://github.com/xitingwang-ida/sysAgNPs
 Imports: 
     dplyr,
@@ -24,4 +26,5 @@ Imports:
     rio,
     tibble,
     tidyr,
-    rlang
+    rlang,
+    ggradar

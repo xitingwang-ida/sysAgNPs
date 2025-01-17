@@ -18,9 +18,6 @@ A \code{ggplot} object.
 Line and Radar Plot of sysAgNPs score
 }
 \examples{
-\dontrun{
-library(ggradar)
 data(sysAgNPs_score)
 sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10)
-}
 }

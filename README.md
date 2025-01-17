@@ -13,12 +13,8 @@ library(devtools)
 devtools::install_github("xitingwang-ida/sysAgNPs")
 devtools::install_bitbucket("cindy-w/sysAgNPs")
 
-# Other packages required
-devtools::install_github("ricardo-bion/ggradar", dependencies = TRUE)
-
 # Load package
 library(sysAgNPs)
-library(ggradar)
 ```
 
 ## How to use sysAgNPs to evaluate AgNPs data
