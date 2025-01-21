@@ -2,15 +2,21 @@
 
 ## Introduction
 
-There is variation across silver nanoparticles (AgNPs) due to differences in characterization techniques and testing metrics employed in studies. To address this problem, we have developed a systematic evaluation framework called 'sysAgNPs'. Within this framework, Distribution Entropy (DE) is utilized to measure the uncertainty of AgNPs' feature categories, Proclivity Entropy (PE) assesses the preference of these categories, and Combination Entropy (CE) quantifies the uncertainty of feature combinations of AgNPs. Additionally, a Markov chain model is employed to examine the relationships among the sub-features of AgNPs and to determine a Transition Score (TS) scoring standard that is based on steady-state probabilities. The 'sysAgNPs' framework provides metrics for evaluating AgNPs, which helps to unravel their complexity and facilitates effective comparisons among different AgNPs, thereby advancing the scientific research and application of these nanoparticles.
+There is variation across AgNPs due to differences in characterization techniques and testing metrics employed in studies. To address this problem, we have developed a systematic evaluation framework called 'sysAgNPs'. Within this framework, Distribution Entropy (DE) is utilized to measure the uncertainty of  feature categories of AgNPs, Proclivity Entropy (PE) assesses the preference of these categories, and Combination Entropy (CE) quantifies the uncertainty of feature combinations of AgNPs. Additionally, a Markov chain model is employed to examine the relationships among the sub-features of AgNPs and to determine a Transition Score (TS) scoring standard that is based on steady-state probabilities. The 'sysAgNPs' framework provides metrics for evaluating AgNPs, which helps to unravel their complexity and facilitates effective comparisons among different AgNPs, thereby advancing the scientific research and application of these AgNPs.
 
 ## Installation of sysAgNPs package
 
 ```R
 # Install sysAgNPs 
+## 1. Install sysAgNPs from CRAN
+install.packages("sysAgNPs")
+
+## 2. Install sysAgNPs from GitHub
 install.packages("devtools")
 library(devtools)
 devtools::install_github("xitingwang-ida/sysAgNPs")
+
+## 3. Install sysAgNPs from Bitbucket
 devtools::install_bitbucket("cindy-w/sysAgNPs")
 
 # Load package
@@ -86,16 +92,19 @@ sysAgNPs_line_radar_1
 ## Session information
 ```R
 sessionInfo()
-# R version 4.4.0 (2024-04-24)
-# Platform: aarch64-apple-darwin20
-# Running under: macOS Sonoma 14.4.1
+# R version 4.4.1 (2024-06-14 ucrt)
+# Platform: x86_64-w64-mingw32/x64
+# Running under: Windows 11 x64 (build 22631)
 # 
 # Matrix products: default
-# BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
-# LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+# 
 # 
 # locale:
-# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# [1] LC_COLLATE=Chinese (Simplified)_China.utf8 
+# [2] LC_CTYPE=Chinese (Simplified)_China.utf8   
+# [3] LC_MONETARY=Chinese (Simplified)_China.utf8
+# [4] LC_NUMERIC=C                               
+# [5] LC_TIME=Chinese (Simplified)_China.utf8    
 # 
 # time zone: Asia/Shanghai
 # tzcode source: internal
@@ -104,23 +113,28 @@ sessionInfo()
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-#  [1] expm_0.999-9    Matrix_1.7-0    magrittr_2.0.3  lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1  
-#  [7] dplyr_1.1.4     purrr_1.0.2     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1    ggplot2_3.5.1  
-# [13] tidyverse_2.0.0 rio_1.1.1      
+# [1] sysAgNPs_1.0.0
 # 
 # loaded via a namespace (and not attached):
-#  [1] gtable_0.3.5      xfun_0.44         htmlwidgets_1.6.4 devtools_2.4.5    remotes_2.5.0    
-#  [6] processx_3.8.4    lattice_0.22-6    callr_3.7.6       tzdb_0.4.0        vctrs_0.6.5      
-# [11] tools_4.4.0       ps_1.7.6          generics_0.1.3    fansi_1.0.6       pkgconfig_2.0.3  
-# [16] R.oo_1.26.0       desc_1.4.3        readxl_1.4.3      lifecycle_1.0.4   compiler_4.4.0   
-# [21] munsell_0.5.1     httpuv_1.6.15     htmltools_0.5.8.1 usethis_2.2.3     yaml_2.3.8       
-# [26] later_1.3.2       pillar_1.9.0      pkgdown_2.0.9     crayon_1.5.2      urlchecker_1.0.1 
-# [31] ellipsis_0.3.2    R.utils_2.12.3    cachem_1.1.0      sessioninfo_1.2.2 mime_0.12        
-# [36] tidyselect_1.2.1  digest_0.6.35     stringi_1.8.4     rprojroot_2.0.4   fastmap_1.2.0    
-# [41] grid_4.4.0        colorspace_2.1-0  cli_3.6.2         pkgbuild_1.4.4    utf8_1.2.4       
-# [46] withr_3.0.0       scales_1.3.0      promises_1.3.0    writexl_1.5.0     timechange_0.3.0 
-# [51] rmarkdown_2.27    cellranger_1.1.0  R.methodsS3_1.8.2 hms_1.1.3         memoise_2.0.1    
-# [56] shiny_1.8.1.1     evaluate_0.23     knitr_1.47        miniUI_0.1.1.1    profvis_0.3.8    
-# [61] rlang_1.1.4       Rcpp_1.0.12       xtable_1.8-4      glue_1.7.0        pkgload_1.3.4    
-# [66] rstudioapi_0.16.0 R6_2.5.1          fs_1.6.4
+#  [1] gtable_0.3.5       ggplot2_3.5.1      htmlwidgets_1.6.4  devtools_2.4.5    
+#  [5] remotes_2.5.0      processx_3.8.4     rstatix_0.7.2      lattice_0.22-6    
+#  [9] callr_3.7.6        vctrs_0.6.5        tools_4.4.1        ps_1.7.7          
+# [13] generics_0.1.3     tibble_3.2.1       fansi_1.0.6        R.oo_1.26.0       
+# [17] pkgconfig_2.0.3    Matrix_1.7-0       RColorBrewer_1.1-3 desc_1.4.3        
+# [21] lifecycle_1.0.4    farver_2.1.2       compiler_4.4.1     stringr_1.5.1     
+# [25] munsell_0.5.1      carData_3.0-5      httpuv_1.6.15      htmltools_0.5.8.1 
+# [29] usethis_2.2.3      yaml_2.3.9         pkgdown_2.1.0      crayon_1.5.3      
+# [33] later_1.3.2        pillar_1.9.0       car_3.1-2          ggpubr_0.6.0      
+# [37] urlchecker_1.0.1   tidyr_1.3.1        R.utils_2.12.3     ellipsis_0.3.2    
+# [41] cachem_1.1.0       sessioninfo_1.2.2  abind_1.4-5        mime_0.12         
+# [45] tidyselect_1.2.1   digest_0.6.36      stringi_1.8.4      dplyr_1.1.4       
+# [49] purrr_1.0.2        labeling_0.4.3     rio_1.1.1          forcats_1.0.0     
+# [53] rprojroot_2.0.4    fastmap_1.2.0      grid_4.4.1         colorspace_2.1-0  
+# [57] expm_0.999-9       cli_3.6.3          magrittr_2.0.3     patchwork_1.2.0   
+# [61] pkgbuild_1.4.4     utf8_1.2.4         broom_1.0.6        withr_3.0.0       
+# [65] scales_1.3.0       promises_1.3.0     backports_1.5.0    writexl_1.5.0     
+# [69] ggsignif_0.6.4     R.methodsS3_1.8.2  memoise_2.0.1      shiny_1.8.1.1     
+# [73] miniUI_0.1.1.1     profvis_0.3.8      rlang_1.1.4        Rcpp_1.0.13       
+# [77] xtable_1.8-4       glue_1.7.0         pkgload_1.4.0      rstudioapi_0.16.0 
+# [81] R6_2.5.1           fs_1.6.4  
 ```

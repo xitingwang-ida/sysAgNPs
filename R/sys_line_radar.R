@@ -9,14 +9,10 @@ globalVariables(".")
 #' @importFrom dplyr mutate select
 #' @importFrom tibble as_tibble
 #' @importFrom ggpubr ggarrange
-#' @importFrom ggradar ggradar
 #' @importFrom rlang sym
 #' @importFrom patchwork wrap_plots
 #' @importFrom utils head tail
 #' @export
-#' @examples
-#' data(sysAgNPs_score)
-#' sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10)
 
 sys_line_radar <- function(sysAgNPs_score, num_plots) {
 
@@ -108,7 +104,7 @@ sys_line_radar <- function(sysAgNPs_score, num_plots) {
     point_colour <- results_colours[as.numeric(current_result)]
 
     # Create a radar chart using ggradar function
-    radar <- ggradar(current_data,
+    radar <- sys_ggradar(current_data,
                      values.radar = c("0", "1", "2"), # Set the minimum, average, and maximum values displayed in the radar chart
                      grid.min = 0, # Value for drawing the minimum grid line
                      grid.mid = 1, # Value for drawing the average grid line

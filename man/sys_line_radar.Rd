@@ -17,7 +17,3 @@ A \code{ggplot} object.
 \description{
 Line and Radar Plot of sysAgNPs score
 }
-\examples{
-data(sysAgNPs_score)
-sysAgNPs_line_radar <- sys_line_radar(sysAgNPs_score, 10)
-}
