@@ -1,0 +1,238 @@
+---
+title: "sysAgNPs tutorial"
+format: 
+  html:
+    embed-resources: true
+    toc: true
+    toc_float:
+        collapsed: false
+    number_sections: true
+editor: visual
+execute:
+  warning: false
+  cache: true
+output:
+  html_document:
+    self_contained: true
+---
+
+sysAgNPs <a href="https://github.com/xitingwang-ida/sysAgNPs"><img src="man/figures/logo.svg" align="right" height="139"/></a>
+
+# Introduction
+
+There is variation across silver nanoparticles (AgNPs) due to differences in characterization techniques and testing metrics employed in studies. To address this problem, we have developed a systematic evaluation framework called `'sysAgNPs'`. Within this framework, `Distribution Entropy (DE)` is utilized to measure the uncertainty of feature categories of AgNPs, `Proclivity Entropy (PE)` assesses the preference of these categories, and `Combination Entropy (CE)` quantifies the uncertainty of feature combinations of AgNPs. Additionally, a Markov chain model is employed to examine the relationships among the sub-features of AgNPs and to determine a `Transition Score (TS)` scoring standard that is based on steady-state probabilities. The `'sysAgNPs'` framework provides metrics for evaluating AgNPs, which helps to unravel their complexity and facilitates effective comparisons among different AgNPs, thereby advancing the scientific research and application of these AgNPs.
+
+# How to use sysAgNPs to evaluate AgNPs data
+
+All the approaches of `'sysAgNPs'` are implemented as a software package that handles all the different steps of the framework creation process and makes it easy to evaluate AgNPs experimental data by adjusting a few parameters.
+
+## Step 1: Installation of R and RStudio
+
+This tutorial is based on R. Although R is the core tool for data analysis and statistics, RStudio is an enhanced development environment that makes using the R language more efficient and convenient. Therefore, most R users tend to install and use RStudio. If you have not installed R and RStudio, you can find an introduction to run it on your computer [here](https://rstudio-education.github.io/hopr/starting.html). You can follow the instructions above to install R and RStudio. If you are already familiar with R and RStudio, you can click [download R and RStudio](https://posit.co/download/rstudio-desktop/) to install them directly. If you have already installed R and RStudio, you can skip this step and proceed to the next one.
+
+## Step 2: Installation of sysAgNPs package
+
+The `sysAgNPs` package can be installed from CRAN, GitHub, and Bitbucket. In addition to submitting our package to [CRAN](https://CRAN.R-project.org/package=sysAgNPs), we also host it on [GitHub](https://github.com/xitingwang-ida/sysAgNPs) and [Bitbucket](https://bitbucket.org/cindy-w/sysagnps/src/master/).
+
+If you encounter an error when installing using the `install.packages("sysAgNPs")`, you can try using `devtools::install_github("xitingwang-ida/sysAgNPs")` or `devtools::install_bitbucket("cindy-w/sysAgNPs")` commands instead. It is important to note that if these two commands fail, you may need to connect to a VPN and try again. If a network error occurs, try switching networks and attempt again. If none of these methods work, you can download the installation package with a `.gz` extension from [here](http://bitbucket.org/cindy-w/sysagnps/get/HEAD.tar.gz) or [there](https://CRAN.R-project.org/package=sysAgNPs) and then install it manually.
+
+If you encounter the message "These packages have more recent versions available. It is recommended to update all of them. Which would you like to update?" during the installation of the `sysAgNPs` package, simply select "None".
+
+### Installation method 1
+
+```{r eval=FALSE}
+# Install sysAgNPs from CRAN.
+install.packages("sysAgNPs")
+```
+
+### Installation method 2
+
+```{r eval=FALSE}
+# Install sysAgNPs from GitHub.
+install.packages("devtools")
+library(devtools)
+devtools::install_github("xitingwang-ida/sysAgNPs")
+```
+
+### Installation method 3
+
+```{r eval=FALSE}
+# Install sysAgNPs from Bitbucket.
+devtools::install_bitbucket("cindy-w/sysAgNPs")
+```
+
+### Loading package
+
+```{r}
+library(sysAgNPs)
+```
+
+## Step 3: Application of sysAgNPs package
+
+### Data preprocessing
+
+Any analysis requires data. The `sysAgNPs` package requires `dataset` as input. First, load the `dataset`. The `dataset` is an example data set included in the `sysAgNPs` package. It contains 600 silver nanoparticle samples (rows) and 15 features (columns).
+
+Next, the `sys_discretize` function is used to perform [one-hot encoding](https://www.educative.io/blog/one-hot-encoding) on the columns included in `var_dis` of the `dataset`. The data was expanded from the original 15 columns to 50 columns, and the categorical variables were converted to 0 and 1, i.e. the final result was a binary data set.
+
+One-hot encoding is a common technique for processing classified data, which converts discrete categorical variables into a binary format that can be understood by machine learning algorithms. The n-bit status register is used to encode N states, each state is represented by its independent register bit, and only one bit is valid at any time. In one-hot coding, each unique classification value is assigned a unique binary vector, also known as a "One-Hot" vector, because in this vector, only one position of the element is 1(indicating the existence of the category), and all the rest of the position of the element is 0.
+
+```{r}
+# Load the built-in data set. 
+data(dataset)
+# View the structure of the "dataset".
+str(dataset)
+# Save the loaded "dataset" as the "users_data" object for easier use later.
+users_data <- dataset
+
+# Select features for one-hot encoding. These features are categorical variables, and performing one-hot encoding on them can better uncover their significance.
+var_dis <- c("Synthesis methods", "pH", "Temperature (℃)", "Zeta potential (mV)","Size (nm)", "Shape", "Applications")
+
+# Convert categorical variables into discrete variables. "dataset" is the data set to be encoded, and "var_dis" is the vector of columns that need to be encoded.
+dis_data <- sys_discretize(dataset, var_dis)
+# View the structure of the "dis_data".
+str(dis_data)
+```
+
+### Construction of transition score (TS) criteria 
+
+A [Markov chain](https://mathworld.wolfram.com/MarkovChain.html) is a collection of random variables ${Xt}$, which is a stochastic process that transitions from one state to another within a state space. 
+
+Markov chain consists of the following elements:<br>
+1. State Space: The set of all possible states, which can be finite or infinite.<br>
+2. Initial Probability Distribution: The probability that the system starts in each state.<br>
+3. Transition Probability Matrix: Described using a square matrix $P$ , which represents the probability of transitioning from one state to another.<br>
+
+The properties of a Markov chain include:<br>
+1. Memorylessness: The probability distribution of the next state depends only on the current state and not on the previous states. This property is known as the Markov property.<br>
+2. Stationary Distribution: If there exists a probability distribution $\pi$ such that $\pi P=\pi$ then $\pi$ is called the stationary distribution. Under the stationary distribution, the state distribution of the system does not change over time.<br>
+3. Ergodicity: A Markov chain is ergodic if it is irreducible (it is possible to transition from any state to any other state with positive probability) and aperiodic. An ergodic Markov chain has a unique stationary distribution.<br>
+4. Convergence: For an ergodic Markov chain, regardless of the initial state, the state distribution will converge to the stationary distribution as the number of steps increases.<br>
+5. Time Homogeneity: The transition probabilities of a Markov chain are independent of time.<br>
+6. Reversibility: A Markov chain is reversible if $P_{ij} > 0$ if and only if $P_{ij} > 0$.<br>
+
+Transition Probability Matrix P: P is a square matrix where $Pij$ represents the probability of transitioning from state $i$ to state $j$. This matrix satisfies the following conditions:<br>
+1. For all $i$ and $j$ , $P_{i j} \geq 0$.<br>
+2. For any $i$, $\sum_{j} P_{i j}=1$.
+
+Markov chains have applications in many fields, including statistics (for simulating stochastic processes), computer science (algorithm design, etc.), economics (economic models), biology, physics, and more. In this study, we apply Markov chains to AgNPs datasets, where steady-state probabilities provide a good approximation of the long-term behavior of AgNPs subfeatures. After some conversion, these steady-state probabilities are finally defined as the `transition scores (TS)` of the sub-features and the AgNPs samples to reflect the relative importance of the sub-features of AgNPs and the reliability and predictability of the AgNPs samples.
+
+#### TS of AgNPs subfeature
+
+Use the `sys_tran` function to calculate the transition probabilities of 50 sub-features in the `dis_data` dataset, resulting in a 50x50 feature transition probability matrix called `tran_matrix`. The row names and column names of the `tran_matrix` matrix are the same, representing the 50 sub-features. After a certain number of iterations, the Markov chain reaches a steady state, so it is necessary to first determine the number of iterations corresponding to the steady state. However, the number of iterations required to reach the steady state varies depending on the tolerance value. Therefore, the `sys_steady` function is used to obtain the number of iterations required for the Markov chain to reach a steady state under different tolerance values, allowing for the selection of appropriate tolerance and iteration values. In this case, the tolerance values are set to 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, and 1e-7, resulting in a 6x2 data frame called `tol_iter`. Finally, we select the iteration count corresponding to `tol_vec = 1e-3` (which is 6) as the number of iterations to reach the steady state, and then use the `sys_iter` function to obtain the probabilities of each sub-feature iterating from 0 to 6. The probability corresponding to 6 iterations is the steady-state probability.
+
+```{r}
+# The feature transition probability is calculated with the processed binary data set “dis_data” as input.
+tran_matrix <- sys_tran(dis_data)
+# View the "tran_matrix" dimension.
+dim(tran_matrix)
+
+# Calculate the number of iterations when Markov chain reaches steady state under different tolerances.
+tol_iter <- sys_steady(
+  dis_data, # The data set to be computed.
+  tran_matrix, # Matrix of transition probability.
+  tol_vec = c(1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7)) # Set different tolerances.
+# The number of iterations with different tolerances.
+tol_iter
+
+# Gets the probability of each iteration of each feature from 0 to steady state (number of iterations is 6).
+iter_prob <- sys_iter(dataset, # Unprocessed data sets.
+                      n_iter=6, # The number of iterations that reach steady state. Select the number of iterations when tol_vec is 1e-3.
+                      var_dis) # Variables or columns to be discretized. Default id NULL.
+```
+
+After obtaining the steady-state probabilities, it is necessary to convert these steady-state probabilities to obtain the final `TS` of subfeature. The final `TS` of subfeature are obtained using the `sys_eval_cri` function. The method is as follows: First, the 50 subfeatures are categorized into 9 groups: Experimental reagents, Characterization, Synthesis methods, pH, Temperature (°C), Size (nm), Shape, Zeta potential (mV), and Applications. Since 7 of the features were previously discretized through one-hot encoding, the remaining 7 groups (excluding experimental reagents and characterization methods) undergo the following data processing. For each group within the 7 groups, the steady-state probabilities of the sub-features are sorted in ascending order. The steady-state probabilities are cumulatively summed from low to high to obtain the  for each sub-feature. For example, in the “pH” group, there are three sub-features (Neutral, Acidic, Alkaline) with steady-state probabilities of 0.0043, 0.0046, and 0.0079, which are already sorted in ascending order. Therefore, the `TS` for these three sub-features are 0.0043, 0.0043+0.0046=0.0089, and 0.0043+0.0046+0.0079=0.0168. This method is applied to all other groups, resulting in the final `TS` for all 50 sub-features. The higher the `TS`, the higher the possibility of the sub-feature, indicating that the sub-feature is more important.
+
+```{r}
+# Get transition score.
+TS_criteria <- sys_eval_cri(dataset, # Unprocessed data sets.
+                            n_iter=6, # The number of iterations that reach steady state. Select the number of iterations when tol_vec is 1e-3.
+                            var_dis) # Variables or columns to be discretized. Default is NULL.
+
+# Rows transposed for easy viewing.
+TS_criteria <- as.data.frame(t(TS_criteria))
+# View the dimensions of the "TS_criteria" data frame.
+dim(TS_criteria)
+# View the first six lines of the "TS_criteria" data box.
+head(TS_criteria)
+```
+
+#### TS of AgNPs samples
+
+It is important to note that `users_data` and `dataset` are equal. During the execution of the program, the original dataset is required, but the `dataset` has been processed and is no longer the original dataset. To avoid confusion and prevent data errors, it is saved as `users_data` instead.
+TS
+Next, calculate the TS of the AgNPs samples. After obtaining the steady-state probabilities of the 50 sub-features of the AgNPs samples, map the steady-state probabilities of each sub-feature back to the original dataset, i.e., the `dataset`, which contains 600 samples (rows) and 15 features (columns). For each element in the `dataset`, if the element's name is one of the 50 sub-features, assign it the steady-state probability of that sub-feature; if the element is empty, assign it a value of 0; if the element is neither empty nor one of the 50 sub-features, check whether the column name corresponding to the element is one of the 50 sub-features. If it is, assign it the steady-state probability of that sub-feature; if not, assign it a value of 0. After completing the steady-state probability mapping, sum the elements in each row, and the resulting value will be the TS of the AgNPs sample. The higher the TS, the higher the reliability and predictability of AgNPs. The above process is implemented by the `sys_TS` function.
+
+```{r}
+# Transition score.
+T_S <- sys_TS(dataset, # The data set to be mapped.
+              users_data, # Data set used to calculate TS.
+              n_iter=6, # The number of iterations that reach steady state. Select the number of iterations when tol_vec is 1e-3.
+              var_dis) # Variables or columns to be discretized. Default is NULL.
+# View the TS of the first six AgNPs samples. The rows represent the AgNPs samples, and the "TS" column represents the TS of each AgNPs sample.
+library(dplyr)
+head(select(T_S,TS))
+```
+
+### Calculate three kinds of entropy
+
+[Shannon Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) is a fundamental concept in information theory, used to measure the average amount of information or uncertainty of an information source. Introduced by Claude Shannon in 1948, the theory is based on quantifying the disorder of a system by calculating the amount of information contained in a message. Shannon Entropy analyzes the probability distribution of different events, quantifying the uncertainty within a system. The higher the entropy value, the greater the uncertainty and the amount of information in the system; conversely, a lower entropy value indicates a more ordered and predictable system.
+
+The Shannon Entropy formula is as follows:$H(p) = - \sum_{i=1}^{n} p_i \log_2 p_i$,Where $p_i$ is the probability of event $i$, and $H(p)$ represents the entropy of the distribution. The level of entropy reflects the randomness or structure within the data or system and is widely used in communication theory, statistics, machine learning, and many other fields.
+
+In machine learning, Shannon Entropy is commonly used in decision tree algorithms to calculate the information gain of features and help choose the optimal split. In signal processing, data compression, and quality evaluation, Shannon Entropy serves as a critical tool for measuring complexity and system stability, aiding in the understanding and optimization of complex system behaviors.
+
+In our study, we apply Shannon Entropy to the AgNPs dataset. Based on the formula of Shannon Entropy, we have designed three types of entropy: `Distribution Entropy (DE)`, `Proclivity Entropy (PE)`, and `Combination Entropy (CE)`. `DE` is calculated using the `sys_DE` function, `PE` is calculated using the `sys_PE` function, and `CE` is implemented by the `sys_CE` function. The input for `DE, PE, and CE` is the `users_data`, which is the original dataset. The last column in `DE, PE, and CE` corresponds to the `DE value, PE value, and CE value` for each AgNPs sample. The preceding columns are intermediate variables in the calculation process.
+
+`DE` is used to quantify the uncertainty of feature categories of AgNPs. The higher the `DE`, the higher the complexity. `PE` assesses the preference for feature categories of AgNPs. The higher the `PE`, the smaller the bias. `CE` evaluates the uncertainty of feature combinations of AgNPs. The higher the `CE`, the higher the complexity. 
+
+```{r}
+# Calculate the DE. 
+DE <- sys_DE(users_data)
+# Look at the first six rows of the DE values, where the rows represent the AgNPs samples, the last column represents the DE values for each AgNPs sample, and the preceding columns represent the intermediate variables of the calculation.
+head(DE)
+
+# Calculate the PE.
+PE <- sys_PE(users_data)
+# Look at the first six rows of the PE values, where the rows represent the AgNPs samples, the last column represents the PE values for each AgNPs sample, and the preceding columns represent the intermediate variables of the calculation.
+head(PE)
+
+# Calculate the CE.
+CE <- sys_CE(users_data, dataset)
+# Look at the first six rows of the CE values, where the rows represent the AgNPs samples, the last column represents the CE values for each AgNPs sample, and the preceding columns represent the intermediate variables of the calculation.
+head(CE)
+```
+
+### Evaluate the experimental data of AgNPs
+
+Integrate `DE, PE, CE, and TS` into four indicators. These four indicators can be used to evaluate the published AgNPs samples, and the results are stored in `sysAgNPs_score`, where the rows represent the AgNPs samples and the columns represent the four evaluation indicators.
+
+```{r}
+# sysAgNPs score of AgNPs (DE, PE, CE, TS).
+sysAgNPs_score <- data.frame(DE = DE$H_pB,
+                             PE = PE$H_pK,
+                             CE = CE$H_pE,
+                             TS = T_S$TS)
+dim(sysAgNPs_score)
+# View the first six rows of metrics.
+head(sysAgNPs_score)
+```
+
+Use the `sys_line_radar` function to visualize the results of the four indicators. **Figure 1** showcases the results for a particular sample within the dataset.  This approach not only yields the sysAgNPs score results for each sample, as shown in **Figure 1 (left)**, but also generates area chart results, such as radar charts, as depicted in **Figure 1 (right)**.  These four outcomes constitute the sysAgNPs score, and the area enclosed by the four values is calculated to form a polygon.  Consequently, the sysAgNPs score serves as a form of “sequence” information for AgNPs, providing a quantitative reflection of various aspects of AgNPs features.
+
+```{r eval=FALSE}
+# Line and radar plots of sysAgNPs score                            
+sysAgNP1 <- sys_line_radar(sysAgNPs_score, # The data frame of evaluation results.
+                           num_plots=1) # Output the evaluation results of the first AgNPs sample. The range of the graph to be output and saved can be a vector or a single value.
+sysAgNP1
+```
+
+![](man/figures/sysAgNP-1.png)<!-- -->
+**Figure 1**: sysAgNPs score of sysAgNP-1. Left: DE, PE, CE, TS values of sysAgNP-1. Right: sysAgNPs-1 area of sysAgNP-1 is 1.777.
+
+# Session information
+
+```{r}
+# Collect information about the current R session
+sessionInfo()
+```
